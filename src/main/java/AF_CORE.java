@@ -7,6 +7,7 @@ import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.CandidateSteps;
 import org.jbehave.core.steps.InstanceStepsFactory;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -62,38 +63,7 @@ public class AF_CORE extends JUnitStories{
         return driver;
     }
 
-    public static String getXpath(String objPath){
-        String xpath = "";
-        try {
-            LinkedHashMap<String , String> objRepo = new LinkedHashMap<>();
-            File fileDir = new File("D:\\Framework\\Automation_CI_Example\\object_repositories");
-            File[] listOfFiles = fileDir.listFiles();
-            for (int i = 0; i < listOfFiles.length ; i++) {
-                File objFile = new File(String.valueOf(listOfFiles[i]));
-                BufferedReader br = new BufferedReader(new FileReader(objFile));
-                String st;
-                while ((st = br.readLine()) != null){
-                    String[] allLine = st.split("\n");
-                    for (int j = 0; j < allLine.length; j++) {
-                        String eachLine = allLine[j];
-                        String[] seperateLine = eachLine.split("\\=");
 
-                        if(seperateLine[0].trim().endsWith(".XPath")){
-                            for (int k = 0; k < seperateLine.length; k++) {
-                                objRepo.put(seperateLine[0].replace(".XPath","").trim(),seperateLine[1].trim());
-                            }
-                        }else {
-//                            logger.warning("Wrong XPath format , please check");
-                        }
-                    }
-                }
-                xpath = objRepo.get(objPath);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return xpath;
-    }
 
     @Override
     public Configuration configuration() {
@@ -117,5 +87,9 @@ public class AF_CORE extends JUnitStories{
         return Arrays.asList("OutLook.story");
     }
 
-
+    @Override
+    @Test
+    public void run() throws Throwable {
+        super.run();
+    }
 }

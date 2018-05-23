@@ -24,12 +24,4 @@ public class Outlook_Test extends BaseStep {
         webDriver.findElement(By.xpath(getXpath("Outlook.Input_EmailAddress")));
     }
 
-    @Override
-    @Test
-    public void run() throws Throwable {
-        super.run();
-    }
-
-
-
 }
