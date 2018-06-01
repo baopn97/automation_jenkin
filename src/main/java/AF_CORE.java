@@ -1,7 +1,5 @@
-import io.tapack.allure.jbehave.AllureReporter;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
-import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.junit.JUnitStories;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
@@ -9,21 +7,14 @@ import org.jbehave.core.steps.CandidateSteps;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class AF_CORE extends JUnitStories{
-
-    private WebDriver driver = null ;
-//    private static Logger logger  = Logger.getLogger("");
 
     public void readVCFFile(){
         try {
@@ -44,27 +35,6 @@ public class AF_CORE extends JUnitStories{
         }
     }
 
-    //Input driver name , Eg : Chrome , Firefox , Edge
-    public WebDriver setDriver(String driverName){
-        switch (driverName){
-            case "Chrome" :
-                System.setProperty("webdriver.chrome.driver","D:\\Framework\\Automation_CI_Example\\driver\\chromedriver.exe");
-                driver = new ChromeDriver();
-                break;
-            case "Firefox" :
-                System.setProperty("webdriver.gecko.driver","D:\\Framework\\Automation_CI_Example\\driver\\geckodriver.exe");
-                driver = new FirefoxDriver();
-                break;
-            case  "Edge"   :
-                System.setProperty("webdriver.ie.driver", "D:\\Framework\\Automation_CI_Example\\driver\\edgedriver.exe");
-                driver = new EdgeDriver();
-                break;
-        }
-        return driver;
-    }
-
-
-
     @Override
     public Configuration configuration() {
         if (super.hasConfiguration()) {
@@ -73,8 +43,7 @@ public class AF_CORE extends JUnitStories{
         return new MostUsefulConfiguration()
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                         .withDefaultFormats()
-                        .withFormats(Format.CONSOLE)
-                        .withReporters(new AllureReporter()));
+                        .withFormats(Format.CONSOLE));
     }
 
     @Override
@@ -84,7 +53,7 @@ public class AF_CORE extends JUnitStories{
 
     @Override
     protected List<String> storyPaths() {
-        return Arrays.asList("OutLook.story");
+        return Arrays.asList("stories/OutLook.story");
     }
 
     @Override
