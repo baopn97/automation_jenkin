@@ -1,34 +1,34 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.LinkedHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class BaseAction extends AF_CORE{
-    public static WebDriver webDriver = null ;
+    WebDriver webDriver = null ;
 
     //Input webDriver name , Eg : Chrome , Firefox , Edge
     public WebDriver setDriver(String driverName){
         switch (driverName){
             case "Chrome" :
-                System.setProperty("webdriver.chrome.webDriver","D:\\Framework\\Automation_CI_Example\\webDriver\\chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver","D:\\Framework\\Automation_CI_Example\\driver\\chromedriver.exe");
                 webDriver = new ChromeDriver();
                 break;
             case "Firefox" :
-                System.setProperty("webdriver.gecko.webDriver","D:\\Framework\\Automation_CI_Example\\webDriver\\geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver","D:\\Framework\\Automation_CI_Example\\driver\\geckodriver.exe");
                 webDriver = new FirefoxDriver();
                 break;
             case  "Edge"   :
-                System.setProperty("webdriver.ie.webDriver", "D:\\Framework\\Automation_CI_Example\\webDriver\\edgedriver.exe");
+                System.setProperty("webdriver.ie.driver", "D:\\Framework\\Automation_CI_Example\\driver\\edgedriver.exe");
                 webDriver = new EdgeDriver();
                 break;
         }
+        webDriver.manage().window().maximize();
+        webDriver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
         return webDriver;
     }
 
@@ -51,7 +51,7 @@ public class BaseAction extends AF_CORE{
                     String[] allLine = st.split("\n");
                     for (int j = 0; j < allLine.length; j++) {
                         String eachLine = allLine[j];
-                        String[] seperateLine = eachLine.split("\\=");
+                        String[] seperateLine = eachLine.split("\\=", 2);
 
                         if(seperateLine[0].trim().endsWith(".XPath")){
                             for (int k = 0; k < seperateLine.length; k++) {
@@ -110,6 +110,10 @@ public class BaseAction extends AF_CORE{
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public byte[] captureScreenshot(){
+        return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
     }
 
 

@@ -1,18 +1,19 @@
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
+import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.junit.JUnitStories;
-import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.CandidateSteps;
+import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.jbehave.core.reporters.Format.*;
 
 public class AF_CORE extends JUnitStories{
 
@@ -35,6 +36,7 @@ public class AF_CORE extends JUnitStories{
         }
     }
 
+
     @Override
     public Configuration configuration() {
         if (super.hasConfiguration()) {
@@ -43,7 +45,7 @@ public class AF_CORE extends JUnitStories{
         return new MostUsefulConfiguration()
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                         .withDefaultFormats()
-                        .withFormats(Format.CONSOLE));
+                        .withFormats(CONSOLE));
     }
 
     @Override
@@ -53,7 +55,7 @@ public class AF_CORE extends JUnitStories{
 
     @Override
     protected List<String> storyPaths() {
-        return Arrays.asList("stories/OutLook.story");
+        return Arrays.asList("stories/Gmail_Login.story");
     }
 
     @Override

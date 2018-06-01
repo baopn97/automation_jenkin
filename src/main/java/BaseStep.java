@@ -1,16 +1,13 @@
 import org.jbehave.core.annotations.*;
-import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class BaseStep extends BaseAction {
 
-    @Given("application browser \"$browserName\" is opened")
+    @Given("application browser \"$browserName\" is set")
     public void applicationBrowserIsOpened(String browserName){
-        webDriver = setDriver(browserName);
-        webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+        setDriver(browserName);
     }
 
     @When("open page \"$url\" in browser")
@@ -18,20 +15,29 @@ public class BaseStep extends BaseAction {
         navigate(url);
     }
 
-    @Then("\"$objPath\" should be displayed")
+    @Then("field \"$objPath\" should be displayed")
     public void elementShouldBeDisplayed(String objPath) {
         checkDisplayed(objPath);
     }
 
-    @Then("field \"$objPath\" is filled with \"$value\"")
+    @When("field \"$objPath\" is filled with \"$value\"")
     public void fieldIsFilledWith(String objPath, String value){
         type(objPath,value);
     }
 
+    @When ("field \"$objPath\" is clicked")
+    @Then ("field \"$objPath\" is clicked")
+    public void fieldIsClicked(String objPath){
+        click(objPath);
+    }
+
+
+
 
     @AfterScenario
-    public void closeWebDriver(){
+    public void afterScenario(){
         closeWebDriver();
     }
+
 
 }
