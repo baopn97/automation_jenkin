@@ -1,4 +1,6 @@
 import org.jbehave.core.annotations.*;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,9 +13,11 @@ public class BaseStep extends BaseAction {
     }
 
     @When("open page \"$url\" in browser")
+    @Then("open page \"$url\" in browser")
     public void openPageInBrowser(String url){
         navigate(url);
     }
+
 
     @Then("field \"$objPath\" should be displayed")
     public void elementShouldBeDisplayed(String objPath) {
@@ -26,18 +30,18 @@ public class BaseStep extends BaseAction {
     }
 
     @When ("field \"$objPath\" is clicked")
-    @Then ("field \"$objPath\" is clicked")
     public void fieldIsClicked(String objPath){
         click(objPath);
     }
 
-
-
-
-    @AfterScenario
-    public void afterScenario(){
-        closeWebDriver();
+    @When("switch to tab \"$index\"")
+    public void switchToTabIndex(int index){
+        switchToTab(index);
     }
 
+//    @AfterScenario
+//    public void afterScenario(){
+//        closeWebDriver();
+//    }
 
 }

@@ -9,7 +9,7 @@ Scenario : Login success with valid user
 !-- Step 1
 Given application browser "Chrome" is set
 !-- Step 2
-When open page "https://accounts.google.com/signin" in browser
+When open page "https://online.vpbank.com.vn" in browser
 Then field "Gmail.Input_Email" should be displayed
 !-- Step 3
 When field "Gmail.Input_Email" is filled with "baopn97@gmail.com"
